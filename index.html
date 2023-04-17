@@ -116,7 +116,7 @@
 
    function addRuleAndMessage(name, rule, message) {
      if (!validation.rules[name]) {
-       validation.rules[name] = [];
+       validation.rules[name] = {};
      }
      validation.rules[name].push(rule);
 
