@@ -114,28 +114,24 @@
      }
    });
 
-   function addRuleAndMessage(name, rule, message) {
-     if (!validation.rules[name]) {
-       validation.rules[name] = [];
-     }
-     validation.rules[name].push(rule);
+     function addRuleAndMessage(name, ruleKey, ruleValue, message) {
+    if (!validation.rules[name]) {
+      validation.rules[name] = {};
+    }
+    if (ruleValue) {
+      validation.rules[name][ruleKey] = ruleValue;
+    } else {
+      validation.rules[name][ruleKey] = true;
+    }
 
-     if (!validation.messages[name]) {
-       validation.messages[name] = {};
-     }
-     var parts = rule.split(':');
-     var key = parts[0];
-     var value = parts[1];
-     if (!value) {
-       validation.messages[name][key] = message;
-     } else {
-       validation.messages[name][key] = message.replace(value, '{{value}}');
-     }
-   }
+    if (!validation.messages[name]) {
+      validation.messages[name] = {};
+    }
+    validation.messages[name][ruleKey] = message;
+  }
 
-   console.log('validation:', validation);
-   return validation;
- }
+  console.log('validation:', validation);
+  return validation;
   });
 </script>
 
