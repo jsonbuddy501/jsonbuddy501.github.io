@@ -76,61 +76,61 @@ $(document).ready(function() {
   });
 
   // Function to generate JSON validation from form HTML
-  function generateJsonValidation(formHtml) {
+function generateJsonValidation(formHtml) {
     console.log('generateJsonValidation function called');
     var $form = $(formHtml);
     console.log('form:', $form);
 
     var validation = {
-      rules: {},
-      messages: {}
+        rules: {},
+        messages: {}
     };
 
     $form.find('ul li').each(function() {
-      var $input = $(this).find(':input');
-      var name = $input.attr('name');
-      console.log('input field:', name);
-      if (name) {
-        var isRequired = $(this).find('.formRequired, .FormRequiredField').length > 0;
-        if (isRequired) {
-          addRuleAndMessage(name, 'required', 'Required');
-        }
+        var $input = $(this).find(':input');
+        var name = $input.attr('name');
+        console.log('input field:', name);
+        if (name) {
+            var isRequired = $(this).find('.formRequired, .FormRequiredField').length > 0;
+            if (isRequired) {
+                addRuleAndMessage(name, 'required', true, 'Required');
+            }
 
-        if ($input.prop('type') === 'email') {
-          addRuleAndMessage(name, 'email', 'Please enter a valid email address');
-        }
+            if ($input.prop('type') === 'email') {
+                addRuleAndMessage(name, 'email', true, 'Please enter a valid email address');
+            }
 
-        var minlength = $input.attr('minlength');
-        if (minlength) {
-          addRuleAndMessage(name, 'minlength:' + minlength, 'Please enter at least ' + minlength + ' characters');
-        }
+            var minlength = $input.attr('minlength');
+            if (minlength) {
+                addRuleAndMessage(name, 'minlength', minlength, 'Please enter at least ' + minlength + ' characters');
+            }
 
-        var maxlength = $input.attr('maxlength');
-        if (maxlength) {
-          addRuleAndMessage(name, 'maxlength:' + maxlength, 'Please enter no more than ' + maxlength + ' characters');
+            var maxlength = $input.attr('maxlength');
+            if (maxlength) {
+                addRuleAndMessage(name, 'maxlength', maxlength, 'Please enter no more than ' + maxlength + ' characters');
+            }
         }
-      }
     });
 
     function addRuleAndMessage(name, ruleKey, ruleValue, message) {
-      if (!validation.rules[name]) {
-        validation.rules[name] = {};
-      }
-      if (ruleValue) {
-        validation.rules[name][ruleKey] = ruleValue;
-      } else {
-        validation.rules[name][ruleKey] = true;
-      }
+        if (!validation.rules[name]) {
+            validation.rules[name] = {};
+        }
+        if (ruleValue) {
+            validation.rules[name][ruleKey] = ruleValue;
+        } else {
+            validation.rules[name][ruleKey] = true;
+        }
 
-      if (!validation.messages[name]) {
-        validation.messages[name] = {};
-      }
-      validation.messages[name][ruleKey] = message;
+        if (!validation.messages[name]) {
+            validation.messages[name] = {};
+        }
+        validation.messages[name][ruleKey] = message;
     }
 
     console.log('validation:', validation);
     return validation;
-  }
+}
 });
 
 </script>
