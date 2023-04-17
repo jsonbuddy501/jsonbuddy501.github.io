@@ -109,6 +109,10 @@ function generateJsonValidation(formHtml) {
             if (maxlength) {
                 addRuleAndMessage(name, 'maxlength', maxlength, 'Please enter no more than ' + maxlength + ' characters');
             }
+
+            if ($input.prop('type') === 'file') {
+                addRuleAndMessage(name, 'extension', 'pdf|txt|html|htm|doc|docx', 'Invalid File Type');
+            }
         }
     });
 
@@ -116,11 +120,7 @@ function generateJsonValidation(formHtml) {
         if (!validation.rules[name]) {
             validation.rules[name] = {};
         }
-        if (ruleValue) {
-            validation.rules[name][ruleKey] = ruleValue;
-        } else {
-            validation.rules[name][ruleKey] = true;
-        }
+        validation.rules[name][ruleKey] = ruleValue;
 
         if (!validation.messages[name]) {
             validation.messages[name] = {};
@@ -131,6 +131,7 @@ function generateJsonValidation(formHtml) {
     console.log('validation:', validation);
     return validation;
 }
+
 });
 
 </script>
