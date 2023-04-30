@@ -96,9 +96,10 @@ function generateJsonValidation(formHtml) {
                 addRuleAndMessage(name, 'required', true, 'Required');
             }
 
-            if ($input.prop('type') === 'email') {
-                addRuleAndMessage(name, 'email', true, 'Please enter a valid email address');
-            }
+           if ($input.prop('placeholder') === 'Email') {
+                    addRuleAndMessage(name, 'email', true, 'Please enter a valid email address');
+                    addRuleAndMessage(name, 'required', true, 'Required');
+                }
 
             var minlength = $input.attr('minlength');
             if (minlength) {
